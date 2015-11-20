@@ -55,9 +55,6 @@ parameters:
   hostname_prefix:
     type: string
 
-  hostname:
-    type: string
-
   domain_name:
     type: string
 

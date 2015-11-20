@@ -256,6 +256,7 @@ resources:
         type: lb.yaml
         properties:
           image: {get_param: server_image}
+
           flavor: {get_param: flavor}
           key_name: {get_param: ssh_key_name}
           ssh_user: {get_param: ssh_user}
@@ -369,7 +370,7 @@ resources:
         lb_hostnames:
           list_join:
           - " "
-          - {get_attr: [lb_nodes, outputs_list, hostname]}
+          - {get_attr: [lb_nodes, hostname]}
 
 outputs:
   # TODO: return the master's certificate authority here so we can use the CLI
