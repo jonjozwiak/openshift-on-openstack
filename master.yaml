@@ -87,6 +87,10 @@ parameters:
     type: string
     default: ''
 
+  lb_hostnames:
+    type: string
+    default: ''
+
   ssh_user:
     type: string
 
@@ -94,6 +98,9 @@ parameters:
     type: string
 
   openshift_ansible_git_rev:
+    type: string
+
+  native_cluster_hostname:
     type: string
 
   timeout:
@@ -225,8 +232,10 @@ resources:
             $MASTER_HOSTNAME: {get_param: hostname}
             $DOMAINNAME: {get_param: domain_name}
             $NODE_HOSTNAMES: $node_hostnames
+            $LB_HOSTNAMES: $lb_hostnames
             $SSH_USER: {get_param: ssh_user}
             $DEPLOYMENT_TYPE: {get_param: deployment_type}
+            $NATIVE_CLUSTER_HOSTNAME: {get_param: native_cluster_hostname}
           template: {get_file: fragments/master-ansible.sh}
 
   wait_condition:

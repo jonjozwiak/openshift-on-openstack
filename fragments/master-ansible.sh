@@ -12,6 +12,12 @@ cat << EOF > /var/lib/ansible-inventory
 masters
 nodes
 etcd
+EOF
+if [[ $LB_HOSTNAMES != "" ]]; then
+  echo "lb" >> /var/lib/ansible-inventory
+fi
+
+cat << EOF >> /var/lib/ansible-inventory
 
 # Set variables common for all OSEv3 hosts
 [OSv3:vars]
@@ -33,6 +39,25 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 # default subdomain to use for exposed routes
 osm_default_subdomain=cloudapps.$DOMAINNAME
 
+EOF
+
+if [[ $NATIVE_CLUSTER_HOSTNAME != "" ]]; then
+cat << EOF >> /var/lib/ansible-inventory
+# Native high availbility cluster method with optional load balancer.
+# If no lb group is defined installer assumes that a load balancer has
+# been preconfigured. For installation the value of
+# openshift_master_cluster_hostname must resolve to the load balancer
+# or to one or all of the masters defined in the inventory if no load
+# balancer is present.
+  # Temporary hack to use LB hostname -- This will change with HA LBs
+openshift_master_cluster_method=native
+openshift_master_cluster_hostname=$LB_HOSTNAMES.$DOMAINNAME
+openshift_master_cluster_public_hostname=$LB_HOSTNAMES.$DOMAINNAME
+EOF
+fi
+
+cat << EOF >> /var/lib/ansible-inventory
+
 ### Note - openshift_hostname and openshift_public_hostname are overrides used because OpenStack instance metadata appends .novalocal by default to hostnames
 
 # host group for masters
@@ -43,6 +68,17 @@ $MASTER_HOSTNAME.$DOMAINNAME openshift_hostname=$MASTER_HOSTNAME.$DOMAINNAME ope
 [etcd]
 $MASTER_HOSTNAME.$DOMAINNAME openshift_hostname=$MASTER_HOSTNAME.$DOMAINNAME openshift_public_hostname=$MASTER_HOSTNAME.$DOMAINNAME
 
+EOF
+
+if [[ $LB_HOSTNAMES != "" ]]; then
+  echo "[lb]" >> /var/lib/ansible-inventory
+  for node in $LB_HOSTNAMES
+  do
+    echo "$node openshift_hostname=$node.$DOMAINNAME openshift_public_hostname=$node.$DOMAINNAME" >> /var/lib/ansible-inventory
+  done
+fi
+
+cat << EOF >> /var/lib/ansible-inventory
 # host group for nodes
 [nodes]
 $MASTER_HOSTNAME.$DOMAINNAME openshift_hostname=$MASTER_HOSTNAME.$DOMAINNAME openshift_public_hostname=$MASTER_HOSTNAME.$DOMAINNAME openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
