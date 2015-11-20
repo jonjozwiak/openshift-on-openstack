@@ -21,7 +21,7 @@ if [ -n "$RHN_USERNAME" -a -n "$RHN_PASSWORD" ]; then
                          --enable="rhel-7-server-rpms" \
                          --enable="rhel-7-server-extras-rpms" \
                          --enable="rhel-7-server-optional-rpms" \
-                         --enable="rhel-7-server-ose-3.0-rpms" \
+                         --enable="rhel-7-server-ose-3.1-rpms" \
                          --enable="rhel-7-server-openstack-7.0-rpms" \
                          --enable="rhel-7-server-openstack-7.0-director-rpms"
     rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
