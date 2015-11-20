@@ -170,13 +170,16 @@ resources:
       group: script
       inputs:
       - name: node_etc_hosts
+      - name: lb_etc_hosts
       outputs:
       - name: result
       config: |
         #!/bin/sh -x
         echo "Writing to /etc/hosts"
         sed -i 's/.* #openshift//' /etc/hosts
+        sed -i 's/.* #lb//' /etc/hosts
         echo "$node_etc_hosts" >> /etc/hosts
+        echo "$lb_etc_hosts" >> /etc/hosts
         systemctl restart dnsmasq
 
   boot_config:

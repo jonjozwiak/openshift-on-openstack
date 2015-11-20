@@ -353,6 +353,10 @@ resources:
           list_join:
           - "\n"
           - {get_attr: [openshift_nodes, outputs_list, etc_hosts]}
+        lb_etc_hosts:
+          list_join:
+          - "\n"
+          - {get_attr: [lb_nodes, etc_hosts]}
 
   deployment_run_ansible:
     depends_on: deployment_node_hosts
