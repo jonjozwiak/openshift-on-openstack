@@ -146,6 +146,7 @@ parameters:
     description: >
       If using native clustering, this is the host name that MUST resolve to 
       the load balancer.  Leave blank if not deploying native clustering
+    default: ""
 
 resources:
 
