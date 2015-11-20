@@ -30,6 +30,13 @@ CentOS and RHEL are the only tested distros for now.
 .. _CentOS: http://www.centos.org/
 .. _RHEL: https://access.redhat.com/downloads
 
+5. Heat URL's must be accessible from within guest instances.  The URLs in question are in /etc/heat/heat.conf on the controller nodes:
+  heat_metadata_server_url = http://xxx.xxx.xxx.xxx:8000
+  heat_waitcondition_server_url = http://xxx.xxx.xxx.xxx:8000/v1/waitcondition
+  heat_watch_server_url = http://xxx.xxx.xxx.xxx:8003
+
+  Deployments from RDO Manager or OSP Director typically set this to the internal API network which often is not routable to guests.  If this is the case, change these IP addresses to public API.
+
 Deployment
 ==========
 
