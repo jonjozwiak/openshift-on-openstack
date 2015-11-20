@@ -226,6 +226,7 @@ resources:
       group: script
       inputs:
         - name: node_hostnames
+        - name: lb_hostnames
       config:
         str_replace:
           params:

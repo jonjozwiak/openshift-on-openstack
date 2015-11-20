@@ -13,7 +13,7 @@ masters
 nodes
 etcd
 EOF
-if [[ $LB_HOSTNAMES != "" ]]; then
+if [[ "$LB_HOSTNAMES" != "" ]]; then
   echo "lb" >> /var/lib/ansible-inventory
 fi
 
@@ -41,7 +41,7 @@ osm_default_subdomain=cloudapps.$DOMAINNAME
 
 EOF
 
-if [[ $NATIVE_CLUSTER_HOSTNAME != "" ]]; then
+if [[ "$NATIVE_CLUSTER_HOSTNAME" != "" ]]; then
 cat << EOF >> /var/lib/ansible-inventory
 # Native high availbility cluster method with optional load balancer.
 # If no lb group is defined installer assumes that a load balancer has
@@ -70,7 +70,7 @@ $MASTER_HOSTNAME.$DOMAINNAME openshift_hostname=$MASTER_HOSTNAME.$DOMAINNAME ope
 
 EOF
 
-if [[ $LB_HOSTNAMES != "" ]]; then
+if [[ "$LB_HOSTNAMES" != "" ]]; then
   echo "[lb]" >> /var/lib/ansible-inventory
   for node in $LB_HOSTNAMES
   do
