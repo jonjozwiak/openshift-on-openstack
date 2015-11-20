@@ -35,7 +35,7 @@ CentOS and RHEL are the only tested distros for now.
   heat_waitcondition_server_url = http://xxx.xxx.xxx.xxx:8000/v1/waitcondition
   heat_watch_server_url = http://xxx.xxx.xxx.xxx:8003
 
-  Deployments from RDO Manager or OSP Director typically set this to the internal API network which often is not routable to guests.  If this is the case, change these IP addresses to public API.
+  Deployments from RDO Manager or OSP Director typically set this to the internal API network which often is not routable to guests.  If this is the case, change these IP addresses to public API.  
 
 Deployment
 ==========
