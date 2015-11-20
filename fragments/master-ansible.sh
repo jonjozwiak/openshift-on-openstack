@@ -51,8 +51,8 @@ cat << EOF >> /var/lib/ansible-inventory
 # balancer is present.
   # Temporary hack to use LB hostname -- This will change with HA LBs
 openshift_master_cluster_method=native
-openshift_master_cluster_hostname=$LB_HOSTNAMES.$DOMAINNAME
-openshift_master_cluster_public_hostname=$LB_HOSTNAMES.$DOMAINNAME
+openshift_master_cluster_hostname=$LB_HOSTNAMES
+openshift_master_cluster_public_hostname=$LB_HOSTNAMES
 EOF
 fi
 
@@ -74,7 +74,7 @@ if [[ "$LB_HOSTNAMES" != "" ]]; then
   echo "[lb]" >> /var/lib/ansible-inventory
   for node in $LB_HOSTNAMES
   do
-    echo "$node openshift_hostname=$node.$DOMAINNAME openshift_public_hostname=$node.$DOMAINNAME" >> /var/lib/ansible-inventory
+    echo "$node openshift_hostname=$node openshift_public_hostname=$node" >> /var/lib/ansible-inventory
   done
 fi
 
