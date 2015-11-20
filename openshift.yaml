@@ -252,7 +252,7 @@ resources:
     type: OS::Heat::ResourceGroup
     properties:
       count: {get_param: lb_count}
-      resource:
+      resource_def:
         type: lb.yaml
         properties:
           image: {get_param: server_image}
